@@ -1,0 +1,894 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>thegr8val — AI Framework</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --purple:       #4B0082;
+  --purple-mid:   #7C3AED;
+  --purple-light: #A855F7;
+  --purple-pale:  rgba(168,85,247,0.15);
+  --pink:         #EC4899;
+  --pink-light:   #F472B6;
+  --pink-pale:    rgba(236,72,153,0.15);
+  --bg:           #0A0A12;
+  --bg2:          #11111C;
+  --bg3:          #1A1A28;
+  --border:       rgba(168,85,247,0.22);
+  --border-pink:  rgba(236,72,153,0.26);
+  --text:         #F1F0FF;
+  --text-muted:   #9B8FCE;
+  --text-dim:     #5A5280;
+  --mono:         'Space Mono', monospace;
+  --sans:         'DM Sans', sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Grid texture ── */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(107,33,168,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(107,33,168,0.07) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── Ambient orbs ── */
+.orb {
+  position:fixed;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+  filter:blur(80px);
+}
+.orb-1 {
+  width:500px; height:500px;
+  top:-180px; left:-180px;
+  background:radial-gradient(circle, rgba(107,33,168,0.24) 0%, transparent 70%);
+}
+.orb-2 {
+  width:400px; height:400px;
+  bottom:-120px; right:-120px;
+  background:radial-gradient(circle, rgba(236,72,153,0.20) 0%, transparent 70%);
+}
+
+/* ── HEADER ── */
+header {
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 28px;
+  background:rgba(10,10,18,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* Shield SVG icon */
+.shield {
+  width:28px;
+  height:28px;
+  flex-shrink:0;
+}
+
+.brand-name {
+  font-family: var(--mono);
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  background: linear-gradient(135deg, var(--purple-light) 0%, var(--pink) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.header-tag {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  border:1px solid var(--border);
+  padding:4px 10px;
+  border-radius:20px;
+}
+
+/* ── HERO ── */
+.hero {
+  position:relative;
+  z-index:1;
+  padding:40px 28px 28px;
+  border-bottom:1px solid var(--border);
+}
+
+.hero-eyebrow {
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--pink);
+  margin-bottom:10px;
+}
+
+.hero-title {
+  font-family:var(--mono);
+  font-size:clamp(20px, 4vw, 30px);
+  font-weight:700;
+  line-height:1.25;
+  margin-bottom:8px;
+}
+
+.hero-title span {
+  background: linear-gradient(135deg, var(--purple-light) 40%, var(--pink) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-sub {
+  font-size:13px;
+  color:var(--text-muted);
+  line-height:1.6;
+  max-width:520px;
+}
+
+/* ── TAB BAR ── */
+.tabs {
+  position:sticky;
+  top:57px;
+  z-index:90;
+  display:flex;
+  background:rgba(13,13,20,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 28px;
+}
+
+.tab {
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:14px 20px;
+  cursor:pointer;
+  border:none;
+  background:transparent;
+  color:var(--text-dim);
+  border-bottom:2px solid transparent;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+
+.tab:hover { color:var(--text-muted); }
+
+.tab.tgv.active {
+  color:var(--purple-light);
+  border-bottom-color:var(--pink);
+  text-shadow:0 0 12px rgba(168,85,247,0.4);
+}
+
+.tab.gen.active {
+  color:#fb923c;
+  border-bottom-color:#fbbf24;
+  text-shadow:0 0 12px rgba(251,146,60,0.4);
+}
+
+.tab-dot {
+  display:inline-block;
+  width:6px; height:6px;
+  border-radius:50%;
+  margin-right:6px;
+  vertical-align:middle;
+}
+.tgv .tab-dot { background:var(--pink); }
+
+.gen .tab-dot { background:#fb923c; }
+
+/* ── PANELS ── */
+.panel { display:none; position:relative; z-index:1; }
+.panel.active { display:block; animation:slideIn 0.3s ease; }
+@keyframes slideIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+.panel-body { padding:28px 28px 60px; }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  margin:32px 0 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.section-label::after {
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--border);
+}
+
+/* ── PANEL INTRO ── */
+.panel-intro {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px 20px;
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+}
+
+.panel-intro-icon {
+  font-size:22px;
+  flex-shrink:0;
+  margin-top:2px;
+}
+
+.panel-intro-title {
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.panel-intro-desc {
+  font-size:12px;
+  color:var(--text-muted);
+  line-height:1.6;
+}
+
+/* ── DECISION TREE ── */
+.tree { display:flex; flex-direction:column; gap:8px; }
+
+.node {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 16px;
+  cursor:pointer;
+  transition:all 0.2s;
+  user-select:none;
+}
+
+.node:hover {
+  border-color:var(--purple-light);
+  background:var(--bg3);
+  transform:translateX(3px);
+}
+
+.node.open {
+  border-color:var(--pink);
+  background:var(--bg3);
+}
+
+.node-header {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.node-num {
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--pink);
+  letter-spacing:0.1em;
+  flex-shrink:0;
+  margin-top:3px;
+}
+
+.node-q {
+  font-size:13px;
+  line-height:1.5;
+  flex:1;
+}
+
+.node-q strong { color:var(--pink-light); }
+
+.chevron {
+  font-size:10px;
+  color:var(--text-dim);
+  flex-shrink:0;
+  margin-top:4px;
+  transition:transform 0.2s;
+}
+.node.open .chevron { transform:rotate(180deg); color:var(--pink); }
+
+.node-options {
+  display:none;
+  gap:8px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+.node.open .node-options { display:flex; }
+
+.opt-btn {
+  font-family:var(--mono);
+  font-size:10px;
+  padding:5px 12px;
+  border-radius:6px;
+  border:1px solid var(--purple-light);
+  background:transparent;
+  color:var(--purple-light);
+  cursor:pointer;
+  transition:all 0.2s;
+  letter-spacing:0.05em;
+}
+.opt-btn:hover {
+  background:var(--purple-pale);
+  border-color:var(--pink);
+  color:var(--pink-light);
+}
+
+.result-box {
+  display:none;
+  margin-top:0;
+  padding:12px 16px;
+  background:linear-gradient(135deg, rgba(168,85,247,0.08) 0%, rgba(236,72,153,0.06) 100%);
+  border:1px solid var(--border-pink);
+  border-radius:8px;
+  font-size:12px;
+  line-height:1.7;
+  color:var(--pink-light);
+  animation:fadeResult 0.2s ease;
+}
+.result-box.visible { display:block; }
+@keyframes fadeResult { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+
+/* GEN tree tones */
+#panel-genx .node:hover, #panel-genx .node.open { border-color:#fb923c; }
+#panel-genx .node.open { border-color:#fbbf24; }
+#panel-genx .node-num { color:#fbbf24; }
+#panel-genx .node-q strong { color:#fdba74; }
+#panel-genx .opt-btn { border-color:#fb923c; color:#fb923c; }
+#panel-genx .opt-btn:hover { background:rgba(251,146,60,0.1); border-color:#fbbf24; color:#fcd34d; }
+#panel-genx .result-box { background:rgba(251,146,60,0.06); border-color:rgba(251,191,36,0.2); color:#fdba74; }
+#panel-genx .node.open .chevron { color:#fbbf24; }
+
+/* ── TYPE CARDS ── */
+.cards-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.card {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  transition:all 0.2s;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--purple-light), var(--pink));
+  opacity:0;
+  transition:opacity 0.2s;
+}
+
+.card:hover { border-color:var(--purple-light); transform:translateY(-2px); }
+.card:hover::before { opacity:1; }
+
+.card-type {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--pink);
+  margin-bottom:6px;
+}
+
+.card-label {
+  font-family:var(--mono);
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:8px;
+  color:var(--text);
+}
+
+.card-desc {
+  font-size:11px;
+  color:var(--text-muted);
+  line-height:1.6;
+  margin-bottom:10px;
+}
+
+.card-examples {
+  border-top:1px solid var(--border);
+  padding-top:8px;
+}
+
+.card-ex {
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--text-dim);
+  padding:3px 0;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.card-ex::before { content:'›'; color:var(--purple-light); }
+
+/* GEN card accents */
+#panel-genx .card-type { color:#fbbf24; }
+#panel-genx .card::before { background:linear-gradient(90deg, #fb923c, #fbbf24); }
+#panel-genx .card:hover { border-color:#fb923c; }
+#panel-genx .card-ex::before { color:#fb923c; }
+
+/* ── PROJECT TABLE ── */
+.project-table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+.project-table th {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  padding:8px 12px;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+}
+
+.project-table td {
+  padding:11px 12px;
+  border-bottom:1px solid rgba(168,85,247,0.07);
+  vertical-align:middle;
+  line-height:1.4;
+  color:var(--text-muted);
+}
+
+.project-table td:first-child {
+  color:var(--text);
+  font-weight:500;
+}
+
+.project-table tr:hover td { background:rgba(168,85,247,0.04); }
+
+/* ── BADGES ── */
+.badge {
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:2px 8px;
+  border-radius:4px;
+  margin:1px 2px;
+  white-space:nowrap;
+}
+
+.b-llm    { background:rgba(168,85,247,0.2);  color:var(--purple-light); border:1px solid rgba(168,85,247,0.3); }
+.b-gen    { background:rgba(236,72,153,0.18); color:var(--pink);         border:1px solid rgba(236,72,153,0.3); }
+.b-agent  { background:rgba(167,139,250,0.18);color:#c4b5fd;             border:1px solid rgba(167,139,250,0.3); }
+.b-ml     { background:rgba(99,102,241,0.18); color:#a5b4fc;             border:1px solid rgba(99,102,241,0.3); }
+.b-rag    { background:rgba(249,115,22,0.15); color:#fdba74;             border:1px solid rgba(249,115,22,0.25);}
+
+/* GEN badges */
+#panel-genx .b-llm   { background:rgba(251,146,60,0.15); color:#fdba74; border-color:rgba(251,146,60,0.3); }
+#panel-genx .b-agent { background:rgba(249,115,22,0.15); color:#fb923c; border-color:rgba(249,115,22,0.3); }
+#panel-genx .b-ml    { background:rgba(234,88,12,0.15);  color:#fed7aa; border-color:rgba(234,88,12,0.3); }
+#panel-genx .b-gen   { background:rgba(251,191,36,0.15); color:#fcd34d; border-color:rgba(251,191,36,0.3); }
+
+/* ── RULE BOX ── */
+.rule-box {
+  background:linear-gradient(135deg, rgba(75,0,130,0.25) 0%, rgba(236,72,153,0.1) 100%);
+  border:1px solid var(--border-pink);
+  border-radius:12px;
+  padding:18px 22px;
+  font-size:12px;
+  line-height:1.8;
+  margin-top:8px;
+  position:relative;
+  overflow:hidden;
+}
+
+.rule-box::before {
+  content:'GOLDEN RULE';
+  position:absolute;
+  top:12px; right:16px;
+  font-family:var(--mono);
+  font-size:8px;
+  letter-spacing:0.2em;
+  color:var(--pink);
+  opacity:0.5;
+}
+
+.rule-box strong {
+  font-family:var(--mono);
+  font-size:13px;
+  display:block;
+  margin-bottom:8px;
+  color:var(--text);
+}
+
+
+
+#panel-genx .rule-box {
+  background:linear-gradient(135deg, rgba(24,10,0,0.6) 0%, rgba(251,191,36,0.06) 100%);
+  border-color:rgba(251,146,60,0.25);
+}
+#panel-genx .rule-box::before { color:#fbbf24; }
+
+/* ── FOOTER ── */
+footer {
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:20px;
+  border-top:1px solid var(--border);
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.15em;
+  color:var(--text-dim);
+}
+
+footer span {
+  background:linear-gradient(135deg, var(--purple-light), var(--pink));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="brand">
+    <svg class="shield" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 1L2 6V15C2 22.18 7.24 28.9 14 31C20.76 28.9 26 22.18 26 15V6L14 1Z" fill="url(#sg)" opacity="0.15"/>
+      <path d="M14 1L2 6V15C2 22.18 7.24 28.9 14 31C20.76 28.9 26 22.18 26 15V6L14 1Z" stroke="url(#sg)" stroke-width="1.5" fill="none"/>
+      <path d="M9 15.5L12.5 19L19 12" stroke="url(#sp)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="sg" x1="2" y1="1" x2="26" y2="31" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#A855F7"/>
+          <stop offset="100%" stop-color="#EC4899"/>
+        </linearGradient>
+        <linearGradient id="sp" x1="9" y1="12" x2="19" y2="19" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#A855F7"/>
+          <stop offset="100%" stop-color="#EC4899"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <span class="brand-name">thegr8val</span>
+  </div>
+  <div class="header-tag">AI Framework v1.0</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Nerd &amp; Secure</div>
+  <h1 class="hero-title">Which AI type<br/>does your project <span>actually need?</span></h1>
+  <p class="hero-sub">Two frameworks — one for thegr8val, one for general use. Tap a question to walk the tree.</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab tgv active" onclick="switchTab('tgv')">
+    <span class="tab-dot"></span>TGV / thegr8val
+  </button>
+  <button class="tab gen" onclick="switchTab('gen')">
+    <span class="tab-dot"></span>General
+  </button>
+</div>
+
+<!-- ═══════════ TGV PANEL ═══════════ -->
+<div id="panel-tgv" class="panel active">
+<div class="panel-body">
+
+  <div class="panel-intro">
+    <div class="panel-intro-icon">🟣</div>
+    <div>
+      <div class="panel-intro-title">thegr8val · YourCyberAlly</div>
+      <div class="panel-intro-desc">Side projects · Public content · Brand building · &lt;5h/week constraint · Revenue is a future layer, not day one</div>
+    </div>
+  </div>
+
+  <div class="section-label">Decision Tree</div>
+  <div class="tree">
+
+    <div class="node" onclick="toggleNode(this)">
+      <div class="node-header">
+        <span class="node-num">01</span>
+        <div class="node-q">Is the output <strong>content or text</strong> — posts, articles, scripts, explanations?</div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="node-options">
+        <button class="opt-btn" onclick="showRes(event,'tgv1a')">Yes → content</button>
+        <button class="opt-btn" onclick="showRes(event,'tgv1b')">No → something else</button>
+      </div>
+    </div>
+    <div id="tgv1a" class="result-box">✦ <strong>LLM or Generative AI.</strong> LLM for writing, editing, summarizing. Add GenAI for visuals — carousels, thumbnails. Always human-reviewed. Your voice is the brand, not the model's.</div>
+    <div id="tgv1b" class="result-box">✦ Continue to the next question ↓</div>
+
+    <div class="node" onclick="toggleNode(this)">
+      <div class="node-header">
+        <span class="node-num">02</span>
+        <div class="node-q">Does the project require <strong>multiple steps or tool use</strong> — draft, post, track, adjust in a loop?</div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="node-options">
+        <button class="opt-btn" onclick="showRes(event,'tgv2a')">Yes → multi-step</button>
+        <button class="opt-btn" onclick="showRes(event,'tgv2b')">No → single task</button>
+      </div>
+    </div>
+    <div id="tgv2a" class="result-box">✦ <strong>Agentic AI.</strong> Social media agent, study tracker, content scheduler. Use Claude API + simple tool loop. Given &lt;5h/week — start supervised. You review before it posts.</div>
+    <div id="tgv2b" class="result-box">✦ <strong>LLM (single call).</strong> Anonymizer, idea generator, topic rewriter. One prompt, one output. Ship fast.</div>
+
+    <div class="node" onclick="toggleNode(this)">
+      <div class="node-header">
+        <span class="node-num">03</span>
+        <div class="node-q">Do you have <strong>structured data to train on or score</strong> — engagement metrics, labeled examples?</div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="node-options">
+        <button class="opt-btn" onclick="showRes(event,'tgv3a')">Yes → labeled data</button>
+        <button class="opt-btn" onclick="showRes(event,'tgv3b')">No → no data yet</button>
+      </div>
+    </div>
+    <div id="tgv3a" class="result-box">✦ <strong>ML (lightweight).</strong> Sentiment on comments, engagement prediction. sklearn or HuggingFace — no infra needed. Build when you have volume.</div>
+    <div id="tgv3b" class="result-box">✦ <strong>Start with LLM.</strong> No data = no ML. Use zero-shot LLM until you have enough signal to train something meaningful.</div>
+
+  </div>
+
+  <div class="section-label">AI Type Map</div>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-type">LLM</div>
+      <div class="card-label">Your content engine</div>
+      <div class="card-desc">Writing, editing, translating, extracting. Core of most TGV projects. Zero-shot capable.</div>
+      <div class="card-examples">
+        <div class="card-ex">Anonymizer tool</div>
+        <div class="card-ex">Cyberbullying Stopper</div>
+        <div class="card-ex">EN/ES articles</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-type">Generative AI</div>
+      <div class="card-label">Visual + creative layer</div>
+      <div class="card-desc">Thumbnails, carousel art, synthetic personas. Amplifies reach — always additive.</div>
+      <div class="card-examples">
+        <div class="card-ex">LinkedIn carousel graphics</div>
+        <div class="card-ex">Post header images</div>
+        <div class="card-ex">YourCyberAlly brand visuals</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-type">Agentic AI</div>
+      <div class="card-label">Your automation layer</div>
+      <div class="card-desc">Multi-step, tool-using workflows. Run supervised — you approve before it acts.</div>
+      <div class="card-examples">
+        <div class="card-ex">Social media agent</div>
+        <div class="card-ex">What to Study tool</div>
+        <div class="card-ex">Travel Guide</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-type">ML</div>
+      <div class="card-label">Future layer</div>
+      <div class="card-desc">When you have data volume. Engagement scoring, topic clustering. Don't invest early.</div>
+      <div class="card-examples">
+        <div class="card-ex">Post performance predictor</div>
+        <div class="card-ex">Audience segment model</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Your Projects Mapped</div>
+  <table class="project-table">
+    <tr><th>Project</th><th>AI Type</th><th>Reasoning</th></tr>
+    <tr><td>Social Media Agent</td><td><span class="badge b-agent">Agentic</span></td><td>Draft → schedule → post → track</td></tr>
+    <tr><td>What to Study Tool</td><td><span class="badge b-agent">Agentic</span> <span class="badge b-llm">LLM</span></td><td>Goal + gap analysis + adaptive plan</td></tr>
+    <tr><td>Anonymizer</td><td><span class="badge b-llm">LLM</span></td><td>Text transformation — single call</td></tr>
+    <tr><td>Cyberbullying Stopper</td><td><span class="badge b-llm">LLM</span> <span class="badge b-ml">ML</span></td><td>Classify (ML) + explain/intervene (LLM)</td></tr>
+    <tr><td>Travel Guide</td><td><span class="badge b-agent">Agentic</span> <span class="badge b-gen">GenAI</span></td><td>Search + personalize + generate itinerary</td></tr>
+    <tr><td>Medium Articles</td><td><span class="badge b-llm">LLM</span></td><td>Draft assist — you own the voice</td></tr>
+  </table>
+
+  <div class="rule-box">
+    <strong>Time is your constraint — default to LLM.</strong>
+    LLM is the fastest path from idea to shipped output. Layer in Agentic when automation saves you real time. Add ML only when you have labeled data AND a prediction need. GenAI is always additive — never the foundation. Validate the idea before building the infra.
+  </div>
+
+</div>
+</div>
+
+
+<!-- ═══════════ GENERAL PANEL ═══════════ -->
+<div id="panel-genx" class="panel">
+<div class="panel-body">
+
+  <div class="panel-intro">
+    <div class="panel-intro-icon">🟠</div>
+    <div>
+      <div class="panel-intro-title">Universal — Any Domain</div>
+      <div class="panel-intro-desc">Personal learning · POC exploration · New projects · Unknown territory — start here when context is unclear</div>
+    </div>
+  </div>
+
+  <div class="section-label">Master Decision Tree</div>
+  <div class="tree">
+
+    <div class="node" onclick="toggleNode(this)">
+      <div class="node-header">
+        <span class="node-num">01</span>
+        <div class="node-q">Do you have <strong>labeled, structured data</strong> and a well-defined output — class, score, or cluster?</div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="node-options">
+        <button class="opt-btn" onclick="showRes(event,'gen1a')">Yes → data ready</button>
+        <button class="opt-btn" onclick="showRes(event,'gen1b')">No → no clean data</button>
+      </div>
+    </div>
+    <div id="gen1a" class="result-box">✦ <strong>Traditional ML.</strong> You have the ingredients. Build the model — sklearn, XGBoost, or lightweight neural net. Fast, explainable, and production-ready.</div>
+    <div id="gen1b" class="result-box">✦ Continue to the next question ↓</div>
+
+    <div class="node" onclick="toggleNode(this)">
+      <div class="node-header">
+        <span class="node-num">02</span>
+        <div class="node-q">Is the primary input/output <strong>language, text, or code</strong>?</div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="node-options">
+        <button class="opt-btn" onclick="showRes(event,'gen2a')">Yes → text-based</button>
+        <button class="opt-btn" onclick="showRes(event,'gen2b')">No → non-text</button>
+      </div>
+    </div>
+    <div id="gen2a" class="result-box">✦ <strong>LLM territory.</strong> Now ask: does it need external data (→ RAG), tools and actions (→ Agentic), or just generation (→ GenAI)?</div>
+    <div id="gen2b" class="result-box">✦ <strong>Generative AI.</strong> Images, audio, video, synthetic data. Or revisit — is this really structured data in disguise?</div>
+
+    <div class="node" onclick="toggleNode(this)">
+      <div class="node-header">
+        <span class="node-num">03</span>
+        <div class="node-q">Does the task need to <strong>take actions, use tools, or reason across multiple steps</strong> toward a goal?</div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="node-options">
+        <button class="opt-btn" onclick="showRes(event,'gen3a')">Yes → multi-step / tool use</button>
+        <button class="opt-btn" onclick="showRes(event,'gen3b')">No → one shot</button>
+      </div>
+    </div>
+    <div id="gen3a" class="result-box">✦ <strong>Agentic AI.</strong> Plan → act → observe → adjust. Use LangChain, LlamaIndex, or Claude API with tool use. Decide: fully autonomous or human-in-loop?</div>
+    <div id="gen3b" class="result-box">✦ <strong>LLM (single inference).</strong> One prompt, one output. Simplest path. Add RAG if grounding to external knowledge matters.</div>
+
+    <div class="node" onclick="toggleNode(this)">
+      <div class="node-header">
+        <span class="node-num">04</span>
+        <div class="node-q">Is <strong>accuracy + explainability</strong> critical — or is creativity and fluency more important?</div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="node-options">
+        <button class="opt-btn" onclick="showRes(event,'gen4a')">Accuracy critical</button>
+        <button class="opt-btn" onclick="showRes(event,'gen4b')">Creativity / fluency</button>
+      </div>
+    </div>
+    <div id="gen4a" class="result-box">✦ <strong>ML or LLM + RAG + guardrails.</strong> Add verification steps. LLMs hallucinate — design around it with grounding, output validation, and fallback logic.</div>
+    <div id="gen4b" class="result-box">✦ <strong>LLM or GenAI.</strong> Let the model breathe. Human review is your safety net. Ship, iterate, refine.</div>
+
+  </div>
+
+  <div class="section-label">The 4 Types at a Glance</div>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-type">ML</div>
+      <div class="card-label">Recognize patterns</div>
+      <div class="card-desc">Learns from labeled examples. Fast, auditable, production-safe. Needs clean data to start.</div>
+      <div class="card-examples">
+        <div class="card-ex">Classification, regression</div>
+        <div class="card-ex">Anomaly detection</div>
+        <div class="card-ex">Clustering, scoring</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-type">LLM</div>
+      <div class="card-label">Understand language</div>
+      <div class="card-desc">Reads, reasons, extracts, explains. Zero-shot capable. Always check for hallucination risk.</div>
+      <div class="card-examples">
+        <div class="card-ex">Summarization, extraction</div>
+        <div class="card-ex">Q&amp;A, code generation</div>
+        <div class="card-ex">Text classification via prompt</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-type">Generative AI</div>
+      <div class="card-label">Create new things</div>
+      <div class="card-desc">Produces novel text, images, audio, code. Creative and powerful — non-deterministic.</div>
+      <div class="card-examples">
+        <div class="card-ex">Images, audio, video</div>
+        <div class="card-ex">Synthetic training data</div>
+        <div class="card-ex">Creative writing</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-type">Agentic AI</div>
+      <div class="card-label">Take autonomous action</div>
+      <div class="card-desc">Plans, uses tools, loops toward a goal. Most powerful — highest complexity and risk.</div>
+      <div class="card-examples">
+        <div class="card-ex">Research &amp; enrichment agents</div>
+        <div class="card-ex">Automation pipelines</div>
+        <div class="card-ex">Multi-tool workflows</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <strong>Start with the output shape — not the tech.</strong>
+    Output is a <strong>label or score</strong> → ML. Output is <strong>text or language</strong> → LLM. Output is <strong>something new or creative</strong> → GenAI. The task needs to <strong>act across multiple steps</strong> → Agentic. Most real projects are hybrid — pick the dominant output type and layer from there. Validate the concept before you build the infra.
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>thegr8val</span> · YourCyberAlly · AI Framework v1.0 · Nerd &amp; Secure
+</footer>
+
+<script>
+  function switchTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelector('.tab.' + id).classList.add('active');
+    const map = { tgv:'panel-tgv', gen:'panel-genx' };
+    document.getElementById(map[id]).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleNode(el) {
+    el.classList.toggle('open');
+  }
+
+  function showRes(e, id) {
+    e.stopPropagation();
+    const el = document.getElementById(id);
+    el.classList.toggle('visible');
+  }
+</script>
+</body>
+</html>
+
