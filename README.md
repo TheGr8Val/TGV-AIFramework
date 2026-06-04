@@ -12,12 +12,18 @@
 </p>
 
 ```
-   _   ___ _____ ___                                           _
-  /_\ |_ _|  ___| _ \ __ _ _ __  _____ __ _____ _ __| | __
- / _ \ | ||  _|  |   // _` | '  \/ -_) V  V / _ \ '  \| / /
-/_/ \_\___|_|   |_|_\ \__,_|_|_|_\___|\_/\_/\___/_||_|_\_\
+  ___________    __   __
+  |__    __|  / _\ \/ /    A I   F R A M E W O R K
+     |  |  | |  |\ / /    ─────────────────────────
+     |  |  | |__/ | |     Which AI does your project
+     |__|   \____/|_|     actually need?
 
-  ML · LLM · GenAI · Agentic — know the difference.  |  thegr8val
+  [ ML ]       ──  patterns from labeled data
+  [ LLM ]      ──  understand & generate language
+  [ GenAI ]    ──  create images, audio, video
+  [ Agentic ]  ──  plan, act, loop, automate
+
+  Start with the output shape — not the tech.  |  thegr8val
 ```
 
 ---
