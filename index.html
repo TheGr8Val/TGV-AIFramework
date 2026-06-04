@@ -397,61 +397,135 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
     <div class="section-label">// 01 — decision tree</div>
 
     <div class="tree">
+
       <div class="node" onclick="toggleNode(this)">
         <div class="node-header">
           <span class="node-num">01</span>
-          <div class="node-q">Do you have <strong>labeled, structured data</strong> and a well-defined output — class, score, or cluster?</div>
+          <div class="node-q">Is the data <strong>temporal / time-indexed</strong> — logs, prices, metrics, sensor readings that change over time?</div>
           <span class="chevron">▼</span>
         </div>
         <div class="node-options">
-          <button class="opt-btn" onclick="showRes(event,'gen1a')">Yes → data ready</button>
-          <button class="opt-btn" onclick="showRes(event,'gen1b')">No → no clean data</button>
+          <button class="opt-btn" onclick="showRes(event,'q1a')">Yes → time-based data</button>
+          <button class="opt-btn" onclick="showRes(event,'q1b')">No → continue</button>
         </div>
-        <div id="gen1a" class="result-box">→ <strong>Traditional ML.</strong> You have the ingredients. Build the model — sklearn, XGBoost, or lightweight neural net. Fast, explainable, and production-ready.</div>
-        <div id="gen1b" class="result-box">→ Continue to the next question ↓</div>
+        <div id="q1a" class="result-box">→ <strong>Time Series / Forecasting.</strong> Use Prophet, statsmodels, or sktime. Works for prediction, trend analysis, and anomaly detection over time. Sequence matters — don't flatten it.</div>
+        <div id="q1b" class="result-box">→ Continue to the next question ↓</div>
       </div>
 
       <div class="node" onclick="toggleNode(this)">
         <div class="node-header">
           <span class="node-num">02</span>
-          <div class="node-q">Is the primary input/output <strong>language, text, or code</strong>?</div>
+          <div class="node-q">Is the input primarily <strong>images or video</strong> — detection, classification, segmentation, or OCR?</div>
           <span class="chevron">▼</span>
         </div>
         <div class="node-options">
-          <button class="opt-btn" onclick="showRes(event,'gen2a')">Yes → text-based</button>
-          <button class="opt-btn" onclick="showRes(event,'gen2b')">No → non-text</button>
+          <button class="opt-btn" onclick="showRes(event,'q2a')">Yes → visual input</button>
+          <button class="opt-btn" onclick="showRes(event,'q2b')">No → continue</button>
         </div>
-        <div id="gen2a" class="result-box">→ <strong>LLM territory.</strong> Now ask: does it need external data (→ RAG), tools and actions (→ Agentic), or just generation (→ GenAI)?</div>
-        <div id="gen2b" class="result-box">→ <strong>Generative AI.</strong> Images, audio, video, synthetic data. Or revisit — is this really structured data in disguise?</div>
+        <div id="q2a" class="result-box">→ <strong>Computer Vision.</strong> Use YOLO for detection, torchvision for classification, OpenCV for preprocessing. A distinct discipline from general ML — the spatial structure of pixels demands its own toolchain.</div>
+        <div id="q2b" class="result-box">→ Continue to the next question ↓</div>
       </div>
 
       <div class="node" onclick="toggleNode(this)">
         <div class="node-header">
           <span class="node-num">03</span>
-          <div class="node-q">Does the task need to <strong>take actions, use tools, or reason across multiple steps</strong> toward a goal?</div>
+          <div class="node-q">Does the system learn from <strong>rewards and interaction</strong> rather than labeled training examples?</div>
           <span class="chevron">▼</span>
         </div>
         <div class="node-options">
-          <button class="opt-btn" onclick="showRes(event,'gen3a')">Yes → multi-step / tool use</button>
-          <button class="opt-btn" onclick="showRes(event,'gen3b')">No → one shot</button>
+          <button class="opt-btn" onclick="showRes(event,'q3a')">Yes → reward-based learning</button>
+          <button class="opt-btn" onclick="showRes(event,'q3b')">No → continue</button>
         </div>
-        <div id="gen3a" class="result-box">→ <strong>Agentic AI.</strong> Plan → act → observe → adjust. Use LangChain, LlamaIndex, or Claude API with tool use. Decide: fully autonomous or human-in-loop?</div>
-        <div id="gen3b" class="result-box">→ <strong>LLM (single inference).</strong> One prompt, one output. Simplest path. Add RAG if grounding to external knowledge matters.</div>
+        <div id="q3a" class="result-box">→ <strong>Reinforcement Learning.</strong> Use Gymnasium + Stable-Baselines3 or RLlib. Best for optimization, adaptive control, robotics, and game-playing. Requires a well-defined reward function — if you can't measure success, RL can't learn it.</div>
+        <div id="q3b" class="result-box">→ Continue to the next question ↓</div>
       </div>
 
       <div class="node" onclick="toggleNode(this)">
         <div class="node-header">
           <span class="node-num">04</span>
+          <div class="node-q">Is the goal <strong>finding similar items, semantic search, or ranking</strong> — without generating new content?</div>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-options">
+          <button class="opt-btn" onclick="showRes(event,'q4a')">Yes → similarity / retrieval</button>
+          <button class="opt-btn" onclick="showRes(event,'q4b')">No → continue</button>
+        </div>
+        <div id="q4a" class="result-box">→ <strong>Embeddings / Semantic Search.</strong> Use sentence-transformers + Chroma, Pinecone, or pgvector. Convert inputs to vectors, search by proximity. No generation — pure retrieval. Much cheaper and faster than using an LLM for search.</div>
+        <div id="q4b" class="result-box">→ Continue to the next question ↓</div>
+      </div>
+
+      <div class="node" onclick="toggleNode(this)">
+        <div class="node-header">
+          <span class="node-num">05</span>
+          <div class="node-q">Does the input combine <strong>multiple modalities</strong> — text + image, audio + text, or document + vision?</div>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-options">
+          <button class="opt-btn" onclick="showRes(event,'q5a')">Yes → multi-modal input</button>
+          <button class="opt-btn" onclick="showRes(event,'q5b')">No → continue</button>
+        </div>
+        <div id="q5a" class="result-box">→ <strong>Multimodal AI.</strong> Use Claude Vision, GPT-4V, or Gemini. Understands and reasons across modalities — distinct from GenAI (which creates) and LLM (which only reads text). Use when your input is inherently mixed.</div>
+        <div id="q5b" class="result-box">→ Continue to the next question ↓</div>
+      </div>
+
+      <div class="node" onclick="toggleNode(this)">
+        <div class="node-header">
+          <span class="node-num">06</span>
+          <div class="node-q">Do you have <strong>labeled, structured data</strong> and a well-defined output — class, score, or cluster?</div>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-options">
+          <button class="opt-btn" onclick="showRes(event,'q6a')">Yes → data ready</button>
+          <button class="opt-btn" onclick="showRes(event,'q6b')">No → continue</button>
+        </div>
+        <div id="q6a" class="result-box">→ <strong>Traditional ML.</strong> You have the ingredients. Build the model — sklearn, XGBoost, or lightweight neural net. Fast, explainable, and production-ready.</div>
+        <div id="q6b" class="result-box">→ Continue to the next question ↓</div>
+      </div>
+
+      <div class="node" onclick="toggleNode(this)">
+        <div class="node-header">
+          <span class="node-num">07</span>
+          <div class="node-q">Is the primary input/output <strong>language, text, or code</strong> — and does it need to retrieve from your own documents?</div>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-options">
+          <button class="opt-btn" onclick="showRes(event,'q7a')">Yes + retrieval needed → RAG</button>
+          <button class="opt-btn" onclick="showRes(event,'q7b')">Yes, standalone → LLM</button>
+          <button class="opt-btn" onclick="showRes(event,'q7c')">No → GenAI</button>
+        </div>
+        <div id="q7a" class="result-box">→ <strong>LLM + RAG.</strong> Ground the model in your documents. Use LangChain, LlamaIndex, or Haystack with a vector store. RAG is the architecture that makes LLMs trustworthy on domain-specific knowledge.</div>
+        <div id="q7b" class="result-box">→ <strong>LLM.</strong> Zero-shot capable. One prompt, strong output. Continue to Q08 if it needs to act across multiple steps.</div>
+        <div id="q7c" class="result-box">→ <strong>Generative AI.</strong> Images, audio, video, synthetic data. Match the modality to the right tool.</div>
+      </div>
+
+      <div class="node" onclick="toggleNode(this)">
+        <div class="node-header">
+          <span class="node-num">08</span>
+          <div class="node-q">Does the task need to <strong>take actions, use tools, or reason across multiple steps</strong> toward a goal?</div>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-options">
+          <button class="opt-btn" onclick="showRes(event,'q8a')">Yes → multi-step / tool use</button>
+          <button class="opt-btn" onclick="showRes(event,'q8b')">No → one shot</button>
+        </div>
+        <div id="q8a" class="result-box">→ <strong>Agentic AI.</strong> Plan → act → observe → adjust. Use LangChain, LlamaIndex, or Claude API with tool use. Decide: fully autonomous or human-in-loop?</div>
+        <div id="q8b" class="result-box">→ <strong>LLM (single inference).</strong> One prompt, one output. Simplest and cheapest path.</div>
+      </div>
+
+      <div class="node" onclick="toggleNode(this)">
+        <div class="node-header">
+          <span class="node-num">09</span>
           <div class="node-q">Is <strong>accuracy + explainability</strong> critical — or is creativity and fluency more important?</div>
           <span class="chevron">▼</span>
         </div>
         <div class="node-options">
-          <button class="opt-btn" onclick="showRes(event,'gen4a')">Accuracy critical</button>
-          <button class="opt-btn" onclick="showRes(event,'gen4b')">Creativity / fluency</button>
+          <button class="opt-btn" onclick="showRes(event,'q9a')">Accuracy critical</button>
+          <button class="opt-btn" onclick="showRes(event,'q9b')">Creativity / fluency</button>
         </div>
-        <div id="gen4a" class="result-box">→ <strong>ML or LLM + RAG + guardrails.</strong> Add verification steps. LLMs hallucinate — design around it with grounding, output validation, and fallback logic.</div>
-        <div id="gen4b" class="result-box">→ <strong>LLM or GenAI.</strong> Let the model breathe. Human review is your safety net. Ship, iterate, refine.</div>
+        <div id="q9a" class="result-box">→ <strong>ML or LLM + RAG + guardrails.</strong> Add verification steps. LLMs hallucinate — design around it with grounding, output validation, and fallback logic.</div>
+        <div id="q9b" class="result-box">→ <strong>LLM or GenAI.</strong> Let the model breathe. Human review is your safety net. Ship, iterate, refine.</div>
       </div>
+
     </div>
 
     <button class="reset-btn" onclick="resetTree()">↺ reset tree</button>
@@ -462,7 +536,7 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
     <div class="section-label">// 02 — the 4 types at a glance</div>
     <div class="cards-grid">
       <div class="card">
-        <div class="card-type">ML</div>
+        <div class="card-type">ML — Traditional</div>
         <div class="card-label">Recognize patterns</div>
         <div class="card-desc">Learns from labeled examples. Fast, auditable, production-safe. Needs clean data to start.</div>
         <div class="card-examples">
@@ -484,7 +558,7 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
       <div class="card">
         <div class="card-type">Generative AI</div>
         <div class="card-label">Create new things</div>
-        <div class="card-desc">Produces novel text, images, audio, code. Creative and powerful — non-deterministic.</div>
+        <div class="card-desc">Produces novel text, images, audio, code. Creative and powerful — non-deterministic by nature.</div>
         <div class="card-examples">
           <div class="card-ex">Images, audio, video</div>
           <div class="card-ex">Synthetic training data</div>
@@ -499,6 +573,66 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
           <div class="card-ex">Research &amp; enrichment agents</div>
           <div class="card-ex">Automation pipelines</div>
           <div class="card-ex">Multi-tool workflows</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-type">Embeddings</div>
+        <div class="card-label">Measure similarity</div>
+        <div class="card-desc">Converts inputs into vectors. Finds similar items, ranks results, enables semantic search — no generation needed.</div>
+        <div class="card-examples">
+          <div class="card-ex">Semantic search</div>
+          <div class="card-ex">Duplicate detection</div>
+          <div class="card-ex">Recommendation ranking</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-type">Multimodal AI</div>
+        <div class="card-label">Reason across modalities</div>
+        <div class="card-desc">Understands text + image, audio + text, or document + vision simultaneously. Not the same as GenAI — this is about understanding, not creating.</div>
+        <div class="card-examples">
+          <div class="card-ex">Image + text Q&amp;A</div>
+          <div class="card-ex">Document analysis with charts</div>
+          <div class="card-ex">Video + transcript reasoning</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-type">Computer Vision</div>
+        <div class="card-label">See and interpret</div>
+        <div class="card-desc">Classifies, detects, and segments images and video. A distinct ML discipline — spatial structure demands its own toolchain.</div>
+        <div class="card-examples">
+          <div class="card-ex">Object detection (YOLO)</div>
+          <div class="card-ex">Image classification</div>
+          <div class="card-ex">OCR, segmentation</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-type">Reinforcement Learning</div>
+        <div class="card-label">Learn from rewards</div>
+        <div class="card-desc">Learns by interacting with an environment and maximizing reward. Very different mental model — no labeled data, just feedback loops.</div>
+        <div class="card-examples">
+          <div class="card-ex">Robotics, control systems</div>
+          <div class="card-ex">Game-playing agents</div>
+          <div class="card-ex">Adaptive optimization</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-type">Time Series</div>
+        <div class="card-label">Forecast over time</div>
+        <div class="card-desc">Learns from sequential, time-indexed data. Sequence matters — treating it as regular ML loses the temporal signal entirely.</div>
+        <div class="card-examples">
+          <div class="card-ex">Demand forecasting</div>
+          <div class="card-ex">Anomaly detection in metrics</div>
+          <div class="card-ex">Trend and seasonality analysis</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-type">RAG</div>
+        <div class="card-label">Retrieve then generate</div>
+        <div class="card-desc">An architectural pattern, not a model. Grounds LLM output in your actual documents. Cuts hallucination on domain knowledge dramatically.</div>
+        <div class="card-examples">
+          <div class="card-ex">Internal knowledge base Q&amp;A</div>
+          <div class="card-ex">Document-grounded summarization</div>
+          <div class="card-ex">Citation-backed answers</div>
         </div>
       </div>
     </div>
@@ -572,6 +706,42 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
         </div>
       </div>
 
+      <div class="anti-card">
+        <span class="anti-x">✗</span>
+        <div>
+          <div class="anti-title">Using an LLM for semantic search</div>
+          <div class="anti-desc">Calling an LLM to "find similar documents" on every query is slow and expensive. Embeddings + a vector store do this in milliseconds at a fraction of the cost — no generation needed.</div>
+          <div class="anti-fix">→ Fix: encode your corpus once with sentence-transformers, store vectors, query by proximity.</div>
+        </div>
+      </div>
+
+      <div class="anti-card">
+        <span class="anti-x">✗</span>
+        <div>
+          <div class="anti-title">Treating Multimodal AI as Generative AI</div>
+          <div class="anti-desc">Multimodal models (Claude Vision, GPT-4V) understand mixed inputs — they don't generate images. Using them to "create visuals" is the wrong tool. GenAI creates; Multimodal understands.</div>
+          <div class="anti-fix">→ Fix: Multimodal = understanding text + image together. GenAI = producing new images/audio/video.</div>
+        </div>
+      </div>
+
+      <div class="anti-card">
+        <span class="anti-x">✗</span>
+        <div>
+          <div class="anti-title">Reaching for RL before simpler approaches</div>
+          <div class="anti-desc">RL is notoriously hard to tune, slow to converge, and brittle outside its training environment. Most "adaptive" problems can be solved with supervised ML, rule engines, or bandit algorithms first.</div>
+          <div class="anti-fix">→ Fix: exhaust heuristics, bandits, and supervised ML. Use RL only when you have a clear reward signal and can afford the training cost.</div>
+        </div>
+      </div>
+
+      <div class="anti-card">
+        <span class="anti-x">✗</span>
+        <div>
+          <div class="anti-title">Flattening time-series data into regular ML features</div>
+          <div class="anti-desc">Running sklearn on time-indexed data without respecting the sequence loses the temporal signal entirely. A model trained this way will look reasonable in cross-validation and fail in production when patterns shift.</div>
+          <div class="anti-fix">→ Fix: use time-aware splits, lag features, and proper forecasting models (Prophet, sktime, LSTMs).</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -608,6 +778,41 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
         <div class="combo-use">→ Triage and prioritization workflows. Risk-based routing and escalation.</div>
       </div>
 
+      <div class="combo-card">
+        <div class="combo-pills"><span class="combo-pill">Embeddings</span><span class="combo-pill">LLM</span></div>
+        <div class="combo-title">Retrieve + Generate (RAG)</div>
+        <div class="combo-desc">The canonical RAG pattern. Embeddings find the right context; LLM reasons over it. Neither alone is as accurate — together they're the standard for domain-specific Q&amp;A.</div>
+        <div class="combo-use">→ Knowledge base Q&amp;A. Document-grounded chat. Citation-backed answers.</div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-pills"><span class="combo-pill">CV</span><span class="combo-pill">ML</span></div>
+        <div class="combo-title">See + Classify</div>
+        <div class="combo-desc">CV extracts visual features or detections; ML downstream scores, routes, or aggregates the results. Keeps the visual and decision logic cleanly separated.</div>
+        <div class="combo-use">→ Defect detection pipelines. Security camera analytics. Medical image triage.</div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-pills"><span class="combo-pill">Time Series</span><span class="combo-pill">LLM</span></div>
+        <div class="combo-title">Forecast + Explain</div>
+        <div class="combo-desc">Time series model handles the temporal prediction; LLM translates the forecast into plain-language insights or generates alerts. Bridges the gap between model output and human action.</div>
+        <div class="combo-use">→ Metric anomaly alerts with natural language summaries. Demand forecasts with business narrative.</div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-pills"><span class="combo-pill">Embeddings</span><span class="combo-pill">Agentic</span></div>
+        <div class="combo-title">Retrieve + Act</div>
+        <div class="combo-desc">Agent retrieves semantically relevant context at each step and acts on it — not just at the start. Enables dynamic, context-aware pipelines that don't front-load all retrieval.</div>
+        <div class="combo-use">→ Research agents that search as they reason. Adaptive enrichment pipelines.</div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-pills"><span class="combo-pill">Multimodal</span><span class="combo-pill">Agentic</span></div>
+        <div class="combo-title">See + Act</div>
+        <div class="combo-desc">Vision-enabled agents that can read images, screenshots, or documents as part of their reasoning loop. Unlocks automation of visual workflows that text-only agents can't handle.</div>
+        <div class="combo-use">→ UI automation agents. Document processing pipelines. Visual QA workflows.</div>
+      </div>
+
     </div>
   </div>
 
@@ -639,6 +844,36 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
         <td>Agentic</td>
         <td><span class="tool-tag">LangChain</span><span class="tool-tag">LlamaIndex</span><span class="tool-tag">Claude API (tool use)</span><span class="tool-tag">CrewAI</span><span class="tool-tag">AutoGen</span></td>
         <td>Claude API tool use for simple agents. LangChain / CrewAI for multi-agent orchestration.</td>
+      </tr>
+      <tr>
+        <td>Embeddings</td>
+        <td><span class="tool-tag">sentence-transformers</span><span class="tool-tag">Chroma</span><span class="tool-tag">Pinecone</span><span class="tool-tag">pgvector</span><span class="tool-tag">FAISS</span></td>
+        <td>sentence-transformers for encoding. Chroma/pgvector for self-hosted. Pinecone for managed scale.</td>
+      </tr>
+      <tr>
+        <td>Multimodal</td>
+        <td><span class="tool-tag">Claude Vision API</span><span class="tool-tag">GPT-4V</span><span class="tool-tag">Gemini</span><span class="tool-tag">BLIP-2</span></td>
+        <td>Claude and GPT-4V for text+image reasoning. BLIP-2 for open-source vision-language tasks.</td>
+      </tr>
+      <tr>
+        <td>Computer Vision</td>
+        <td><span class="tool-tag">OpenCV</span><span class="tool-tag">Ultralytics (YOLO)</span><span class="tool-tag">torchvision</span><span class="tool-tag">Detectron2</span><span class="tool-tag">Roboflow</span></td>
+        <td>YOLO for real-time detection. torchvision for classification. Roboflow for dataset management.</td>
+      </tr>
+      <tr>
+        <td>Reinforcement Learning</td>
+        <td><span class="tool-tag">Gymnasium</span><span class="tool-tag">Stable-Baselines3</span><span class="tool-tag">RLlib</span><span class="tool-tag">Ray</span></td>
+        <td>Gymnasium for environments. Stable-Baselines3 for standard algorithms. RLlib for distributed scale.</td>
+      </tr>
+      <tr>
+        <td>Time Series</td>
+        <td><span class="tool-tag">Prophet</span><span class="tool-tag">statsmodels</span><span class="tool-tag">sktime</span><span class="tool-tag">Darts</span><span class="tool-tag">NeuralForecast</span></td>
+        <td>Prophet for business forecasting. sktime for a unified API. NeuralForecast for deep learning approaches.</td>
+      </tr>
+      <tr>
+        <td>RAG</td>
+        <td><span class="tool-tag">LangChain</span><span class="tool-tag">LlamaIndex</span><span class="tool-tag">Haystack</span><span class="tool-tag">Chroma</span><span class="tool-tag">pgvector</span></td>
+        <td>LlamaIndex for document-heavy pipelines. Haystack for production search. Always pair with a vector store.</td>
       </tr>
     </table>
   </div>
@@ -679,6 +914,54 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
         <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val high">High</span></div>
         <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val low">No</span></div>
       </div>
+      <div class="effort-card">
+        <div class="effort-type">Embeddings</div>
+        <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val low">Low</span></div>
+        <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val low">Very Low</span></div>
+        <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val med">Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val low">Low</span></div>
+        <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val low">No labels</span></div>
+      </div>
+      <div class="effort-card">
+        <div class="effort-type">Multimodal</div>
+        <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val low">Low</span></div>
+        <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val med">Medium–High</span></div>
+        <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val high">Low</span></div>
+        <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val low">Low</span></div>
+        <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val low">No</span></div>
+      </div>
+      <div class="effort-card">
+        <div class="effort-type">Computer Vision</div>
+        <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val med">Medium–High</span></div>
+        <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val low">Low–Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val med">Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val med">Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val high">Yes — labeled images</span></div>
+      </div>
+      <div class="effort-card">
+        <div class="effort-type">Reinforcement Learning</div>
+        <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val high">Very High</span></div>
+        <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val low">Low</span></div>
+        <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val high">Very Low</span></div>
+        <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val high">Very High</span></div>
+        <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val high">Environment / sim</span></div>
+      </div>
+      <div class="effort-card">
+        <div class="effort-type">Time Series</div>
+        <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val low">Low–Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val low">Low</span></div>
+        <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val med">Medium–High</span></div>
+        <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val med">Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val high">Yes — historical seq.</span></div>
+      </div>
+      <div class="effort-card">
+        <div class="effort-type">RAG</div>
+        <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val med">Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val med">Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val med">Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val med">Medium</span></div>
+        <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val low">Documents only</span></div>
+      </div>
     </div>
   </div>
 
@@ -705,6 +988,22 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
       <div class="levelup-item">
         <div class="levelup-from">Prompt <span class="levelup-arrow">→</span> <span class="levelup-to">ML</span></div>
         <div class="levelup-when">When you've collected <strong>500+ labeled examples</strong>, the task is well-defined, and you need speed, cost efficiency, or explainability that a live LLM call can't provide.</div>
+      </div>
+      <div class="levelup-item">
+        <div class="levelup-from">ML <span class="levelup-arrow">→</span> <span class="levelup-to">CV</span></div>
+        <div class="levelup-when">When your input is <strong>images or video</strong>. Tabular ML doesn't understand spatial structure — you need convolutional or transformer-based architectures built for pixels.</div>
+      </div>
+      <div class="levelup-item">
+        <div class="levelup-from">LLM <span class="levelup-arrow">→</span> <span class="levelup-to">Embeddings</span></div>
+        <div class="levelup-when">When your task is <strong>finding similar items or semantic search</strong> — not generating text. Embeddings are 100× cheaper and faster for retrieval. Stop calling an LLM to compare documents.</div>
+      </div>
+      <div class="levelup-item">
+        <div class="levelup-from">Embeddings <span class="levelup-arrow">→</span> <span class="levelup-to">RAG</span></div>
+        <div class="levelup-when">When retrieved results need to be <strong>reasoned over, summarized, or answered</strong> in natural language — not just ranked. Embeddings find the context; LLM completes the answer.</div>
+      </div>
+      <div class="levelup-item">
+        <div class="levelup-from">ML <span class="levelup-arrow">→</span> <span class="levelup-to">Time Series</span></div>
+        <div class="levelup-when">When your data has a <strong>temporal index and sequence matters</strong>. If you're treating timestamps as just another feature in sklearn, you're losing the signal that makes the data useful.</div>
       </div>
     </div>
   </div>
@@ -741,6 +1040,29 @@ footer { padding:32px 0; border-top:1px solid var(--border); }
         <a href="https://docs.llamaindex.ai" target="_blank" class="source-link">LlamaIndex — Docs</a>
         <a href="https://docs.anthropic.com/en/docs/agents-and-tools" target="_blank" class="source-link">Claude — Tool Use &amp; Agents</a>
         <a href="https://microsoft.github.io/autogen" target="_blank" class="source-link">AutoGen — Multi-Agent</a>
+      </div>
+      <div class="source-card">
+        <div class="source-type">Embeddings</div>
+        <a href="https://www.sbert.net" target="_blank" class="source-link">sentence-transformers — Docs</a>
+        <a href="https://docs.trychroma.com" target="_blank" class="source-link">Chroma — Vector Store</a>
+        <a href="https://docs.pinecone.io" target="_blank" class="source-link">Pinecone — Managed Vector DB</a>
+        <a href="https://github.com/pgvector/pgvector" target="_blank" class="source-link">pgvector — Postgres Extension</a>
+      </div>
+      <div class="source-card">
+        <div class="source-type">Multimodal &amp; Computer Vision</div>
+        <a href="https://docs.anthropic.com/en/docs/vision" target="_blank" class="source-link">Claude — Vision Docs</a>
+        <a href="https://platform.openai.com/docs/guides/vision" target="_blank" class="source-link">OpenAI — Vision Guide</a>
+        <a href="https://docs.ultralytics.com" target="_blank" class="source-link">Ultralytics (YOLO) — Docs</a>
+        <a href="https://pytorch.org/vision/stable/index.html" target="_blank" class="source-link">torchvision — Docs</a>
+        <a href="https://docs.opencv.org" target="_blank" class="source-link">OpenCV — Docs</a>
+      </div>
+      <div class="source-card">
+        <div class="source-type">RL &amp; Time Series</div>
+        <a href="https://gymnasium.farama.org" target="_blank" class="source-link">Gymnasium — RL Environments</a>
+        <a href="https://stable-baselines3.readthedocs.io" target="_blank" class="source-link">Stable-Baselines3 — Docs</a>
+        <a href="https://facebook.github.io/prophet" target="_blank" class="source-link">Prophet — Forecasting</a>
+        <a href="https://www.sktime.net" target="_blank" class="source-link">sktime — Time Series ML</a>
+        <a href="https://nixtlaverse.nixtla.io/neuralforecast" target="_blank" class="source-link">NeuralForecast — Deep TS</a>
       </div>
     </div>
   </div>
