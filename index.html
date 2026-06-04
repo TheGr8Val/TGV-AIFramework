@@ -498,6 +498,224 @@ header {
 }
 #panel-genx .rule-box::before { color:#fbbf24; }
 
+/* ── RESET BUTTON ── */
+.reset-btn {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  background:transparent;
+  border:1px solid var(--border);
+  padding:5px 14px;
+  border-radius:20px;
+  cursor:pointer;
+  margin-top:12px;
+  transition:all 0.2s;
+  display:block;
+}
+.reset-btn:hover { color:var(--text-muted); border-color:rgba(251,146,60,0.4); }
+
+/* ── ANTI-PATTERNS ── */
+.anti-grid { display:flex; flex-direction:column; gap:8px; }
+.anti-card {
+  background:var(--bg2);
+  border:1px solid rgba(239,68,68,0.2);
+  border-left:3px solid #ef4444;
+  border-radius:10px;
+  padding:14px 16px;
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+.anti-x {
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:700;
+  color:#ef4444;
+  flex-shrink:0;
+  margin-top:1px;
+}
+.anti-title {
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:4px;
+}
+.anti-desc { font-size:11px; color:var(--text-muted); line-height:1.6; }
+.anti-fix {
+  font-size:10px;
+  color:#fb923c;
+  margin-top:6px;
+  font-family:var(--mono);
+}
+
+/* ── HYBRID COMBOS ── */
+.combo-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.combo-card {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  position:relative;
+  overflow:hidden;
+  transition:all 0.2s;
+}
+.combo-card:hover { border-color:rgba(251,146,60,0.5); transform:translateY(-2px); }
+.combo-pills {
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+.combo-pill {
+  font-family:var(--mono);
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:2px 8px;
+  border-radius:4px;
+  border:1px solid rgba(251,146,60,0.4);
+  color:#fb923c;
+  background:rgba(251,146,60,0.08);
+}
+.combo-title {
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:6px;
+}
+.combo-desc { font-size:11px; color:var(--text-muted); line-height:1.6; }
+.combo-use {
+  font-size:10px;
+  color:var(--text-dim);
+  margin-top:8px;
+  font-family:var(--mono);
+}
+
+/* ── TOOLING TABLE ── */
+.tool-table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+.tool-table th {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  padding:8px 12px;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+}
+.tool-table td {
+  padding:11px 12px;
+  border-bottom:1px solid rgba(168,85,247,0.07);
+  vertical-align:top;
+  line-height:1.6;
+  color:var(--text-muted);
+}
+.tool-table td:first-child {
+  font-family:var(--mono);
+  font-size:10px;
+  font-weight:700;
+  color:var(--text);
+  white-space:nowrap;
+}
+.tool-table tr:hover td { background:rgba(168,85,247,0.04); }
+.tool-tag {
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:9px;
+  padding:1px 7px;
+  border-radius:4px;
+  margin:2px 2px 2px 0;
+  background:rgba(251,146,60,0.1);
+  border:1px solid rgba(251,146,60,0.25);
+  color:#fb923c;
+}
+
+/* ── EFFORT GRID ── */
+.effort-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.effort-card {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+}
+.effort-type {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:#fbbf24;
+  margin-bottom:8px;
+}
+.effort-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:5px 0;
+  border-bottom:1px solid rgba(168,85,247,0.07);
+  font-size:11px;
+}
+.effort-row:last-child { border-bottom:none; }
+.effort-key { color:var(--text-muted); font-family:var(--mono); font-size:9px; letter-spacing:0.05em; }
+.effort-val { color:var(--text); font-family:var(--mono); font-size:10px; font-weight:700; }
+.effort-val.low  { color:#34d399; }
+.effort-val.med  { color:#fbbf24; }
+.effort-val.high { color:#f87171; }
+
+/* ── LEVEL UP ── */
+.levelup-list { display:flex; flex-direction:column; gap:8px; }
+.levelup-item {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 16px;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:12px;
+  align-items:start;
+}
+.levelup-from {
+  font-family:var(--mono);
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.levelup-arrow { color:var(--text-dim); margin:0 2px; }
+.levelup-to { color:#fb923c; }
+.levelup-when {
+  font-size:11px;
+  color:var(--text-muted);
+  line-height:1.6;
+}
+.levelup-when strong { color:var(--text); font-family:var(--mono); font-size:10px; }
+
+/* ── MOBILE ── */
+@media (max-width:640px) {
+  .cards-grid    { grid-template-columns:1fr; }
+  .combo-grid    { grid-template-columns:1fr; }
+  .effort-grid   { grid-template-columns:1fr; }
+  .panel-body    { padding:20px 16px 48px; }
+  .hero          { padding:28px 16px 20px; }
+}
+
 /* ── FOOTER ── */
 footer {
   position:relative;
@@ -631,6 +849,8 @@ footer span {
 
   </div>
 
+  <button class="reset-btn" onclick="resetTree()">↺ reset tree</button>
+
   <div class="section-label">The 4 Types at a Glance</div>
   <div class="cards-grid">
     <div class="card">
@@ -680,6 +900,238 @@ footer span {
     Output is a <strong>label or score</strong> → ML. Output is <strong>text or language</strong> → LLM. Output is <strong>something new or creative</strong> → GenAI. The task needs to <strong>act across multiple steps</strong> → Agentic. Most real projects are hybrid — pick the dominant output type and layer from there. Validate the concept before you build the infra.
   </div>
 
+  <!-- ── ANTI-PATTERNS ── -->
+  <div class="section-label">Common Mistakes</div>
+  <div class="anti-grid">
+
+    <div class="anti-card">
+      <span class="anti-x">✗</span>
+      <div>
+        <div class="anti-title">Using GenAI when you need ML</div>
+        <div class="anti-desc">GenAI can't be trained on your labels and will hallucinate structured outputs. If you need a score, a class, or a consistent prediction — that's ML territory.</div>
+        <div class="anti-fix">→ Fix: if the output is a label or number, reach for sklearn or XGBoost first.</div>
+      </div>
+    </div>
+
+    <div class="anti-card">
+      <span class="anti-x">✗</span>
+      <div>
+        <div class="anti-title">Building Agentic when one LLM call suffices</div>
+        <div class="anti-desc">Agents add latency, cost, and failure modes. Most tasks that feel multi-step can be handled with a well-structured single prompt or a short chain.</div>
+        <div class="anti-fix">→ Fix: try a single prompt first. Build Agentic only when it genuinely saves human time.</div>
+      </div>
+    </div>
+
+    <div class="anti-card">
+      <span class="anti-x">✗</span>
+      <div>
+        <div class="anti-title">Training ML before you have data</div>
+        <div class="anti-desc">No labels = no signal. A model trained on 50 examples is worse than zero-shot LLM. Data collection is the work — not the model.</div>
+        <div class="anti-fix">→ Fix: use LLM zero-shot until you have 500+ labeled examples worth trusting.</div>
+      </div>
+    </div>
+
+    <div class="anti-card">
+      <span class="anti-x">✗</span>
+      <div>
+        <div class="anti-title">Fine-tuning before exhausting prompting</div>
+        <div class="anti-desc">Fine-tuning is expensive, slow, and brittle. Prompt engineering, few-shot examples, and RAG solve 90% of cases that feel like they need a fine-tune.</div>
+        <div class="anti-fix">→ Fix: iterate prompts, add examples, try RAG. Fine-tune only when prompting has truly plateaued.</div>
+      </div>
+    </div>
+
+    <div class="anti-card">
+      <span class="anti-x">✗</span>
+      <div>
+        <div class="anti-title">Building infra before validating the concept</div>
+        <div class="anti-desc">LangChain pipelines and vector databases before you've confirmed the LLM can even do the task. A notebook + one API call should come first.</div>
+        <div class="anti-fix">→ Fix: validate with a script. Add orchestration only after the core output is good enough.</div>
+      </div>
+    </div>
+
+    <div class="anti-card">
+      <span class="anti-x">✗</span>
+      <div>
+        <div class="anti-title">Going fully autonomous with Agentic on day one</div>
+        <div class="anti-desc">Agents fail in unexpected ways — wrong tool calls, loops, hallucinated inputs. Full autonomy before supervised testing is how you ship embarrassing or harmful outputs.</div>
+        <div class="anti-fix">→ Fix: human-in-loop first. Remove checkpoints only after you've seen it succeed 20+ times.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── HYBRID COMBOS ── -->
+  <div class="section-label">Hybrid Combinations</div>
+  <div class="combo-grid">
+
+    <div class="combo-card">
+      <div class="combo-pills">
+        <span class="combo-pill">ML</span>
+        <span class="combo-pill">LLM</span>
+      </div>
+      <div class="combo-title">Detect + Explain</div>
+      <div class="combo-desc">ML classifies or scores; LLM explains the result in plain language or takes a follow-up action. Fast and auditable where it counts.</div>
+      <div class="combo-use">→ Threat detection + analyst summary. Sentiment scoring + response drafting.</div>
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-pills">
+        <span class="combo-pill">LLM</span>
+        <span class="combo-pill">RAG</span>
+      </div>
+      <div class="combo-title">Ground + Generate</div>
+      <div class="combo-desc">LLM generates; RAG keeps it grounded in your actual documents. Cuts hallucination on domain-specific knowledge dramatically.</div>
+      <div class="combo-use">→ Q&amp;A over docs. Report summarization with citations. Internal knowledge bases.</div>
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-pills">
+        <span class="combo-pill">Agentic</span>
+        <span class="combo-pill">RAG</span>
+      </div>
+      <div class="combo-title">Retrieve + Act</div>
+      <div class="combo-desc">Agent retrieves context at each step rather than loading everything upfront. Useful when the next action depends on what was just found.</div>
+      <div class="combo-use">→ Research pipelines. OSINT enrichment loops. Multi-step report generation.</div>
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-pills">
+        <span class="combo-pill">ML</span>
+        <span class="combo-pill">Agentic</span>
+      </div>
+      <div class="combo-title">Score + Route</div>
+      <div class="combo-desc">ML produces a fast, cheap score; the agent uses that score to decide the next step. Keeps reasoning cheap and structured predictions reliable.</div>
+      <div class="combo-use">→ Triage and prioritization workflows. Risk-based routing and escalation.</div>
+    </div>
+
+  </div>
+
+  <!-- ── TOOLING ── -->
+  <div class="section-label">Tooling by Type</div>
+  <table class="tool-table">
+    <tr>
+      <th>Type</th>
+      <th>Core tools</th>
+      <th>Notes</th>
+    </tr>
+    <tr>
+      <td>ML</td>
+      <td>
+        <span class="tool-tag">scikit-learn</span>
+        <span class="tool-tag">XGBoost</span>
+        <span class="tool-tag">PyTorch</span>
+        <span class="tool-tag">HuggingFace</span>
+        <span class="tool-tag">SHAP</span>
+      </td>
+      <td>SHAP for explainability — non-optional if humans need to trust the output.</td>
+    </tr>
+    <tr>
+      <td>LLM</td>
+      <td>
+        <span class="tool-tag">Claude API</span>
+        <span class="tool-tag">OpenAI API</span>
+        <span class="tool-tag">Ollama</span>
+        <span class="tool-tag">LiteLLM</span>
+      </td>
+      <td>Ollama for local/offline. LiteLLM as a unified gateway across providers.</td>
+    </tr>
+    <tr>
+      <td>Generative AI</td>
+      <td>
+        <span class="tool-tag">DALL-E</span>
+        <span class="tool-tag">Midjourney</span>
+        <span class="tool-tag">Stable Diffusion</span>
+        <span class="tool-tag">ElevenLabs</span>
+        <span class="tool-tag">Sora</span>
+      </td>
+      <td>Match the modality to the output — image, audio, video, or code are all different tools.</td>
+    </tr>
+    <tr>
+      <td>Agentic</td>
+      <td>
+        <span class="tool-tag">LangChain</span>
+        <span class="tool-tag">LlamaIndex</span>
+        <span class="tool-tag">Claude API (tool use)</span>
+        <span class="tool-tag">CrewAI</span>
+        <span class="tool-tag">AutoGen</span>
+      </td>
+      <td>Claude API tool use for simple agents. LangChain/CrewAI for multi-agent orchestration.</td>
+    </tr>
+  </table>
+
+  <!-- ── COST & EFFORT ── -->
+  <div class="section-label">Cost &amp; Effort Reality</div>
+  <div class="effort-grid">
+
+    <div class="effort-card">
+      <div class="effort-type">ML</div>
+      <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val med">Medium</span></div>
+      <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val low">Low</span></div>
+      <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val low">High</span></div>
+      <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val med">Medium</span></div>
+      <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val high">Yes — labeled</span></div>
+    </div>
+
+    <div class="effort-card">
+      <div class="effort-type">LLM</div>
+      <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val low">Low</span></div>
+      <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val med">Medium</span></div>
+      <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val med">Low–Med</span></div>
+      <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val low">Low</span></div>
+      <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val low">No</span></div>
+    </div>
+
+    <div class="effort-card">
+      <div class="effort-type">Generative AI</div>
+      <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val low">Low</span></div>
+      <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val med">Medium–High</span></div>
+      <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val high">None</span></div>
+      <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val low">Low</span></div>
+      <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val low">No</span></div>
+    </div>
+
+    <div class="effort-card">
+      <div class="effort-type">Agentic</div>
+      <div class="effort-row"><span class="effort-key">Setup cost</span><span class="effort-val high">High</span></div>
+      <div class="effort-row"><span class="effort-key">Inference cost</span><span class="effort-val high">High</span></div>
+      <div class="effort-row"><span class="effort-key">Explainability</span><span class="effort-val high">Low</span></div>
+      <div class="effort-row"><span class="effort-key">Maintenance</span><span class="effort-val high">High</span></div>
+      <div class="effort-row"><span class="effort-key">Data required</span><span class="effort-val low">No</span></div>
+    </div>
+
+  </div>
+
+  <!-- ── WHEN TO LEVEL UP ── -->
+  <div class="section-label">When to Level Up</div>
+  <div class="levelup-list">
+
+    <div class="levelup-item">
+      <div class="levelup-from">LLM <span class="levelup-arrow">→</span> <span class="levelup-to">Agentic</span></div>
+      <div class="levelup-when">When the task needs <strong>3+ sequential steps</strong>, requires calling external tools, or loops until a condition is met — and doing it manually is eating real time.</div>
+    </div>
+
+    <div class="levelup-item">
+      <div class="levelup-from">LLM <span class="levelup-arrow">→</span> <span class="levelup-to">LLM + RAG</span></div>
+      <div class="levelup-when">When zero-shot accuracy on <strong>domain-specific knowledge</strong> is too low and the model keeps hallucinating facts you actually have stored somewhere.</div>
+    </div>
+
+    <div class="levelup-item">
+      <div class="levelup-from">LLM <span class="levelup-arrow">→</span> <span class="levelup-to">Fine-tuned LLM</span></div>
+      <div class="levelup-when">When prompt engineering has plateaued, you have <strong>1,000+ high-quality examples</strong>, and the task has a consistent input/output shape that benefits from baked-in style or format.</div>
+    </div>
+
+    <div class="levelup-item">
+      <div class="levelup-from">ML <span class="levelup-arrow">→</span> <span class="levelup-to">ML + LLM</span></div>
+      <div class="levelup-when">When the model's output needs to be <strong>explained, acted on, or communicated</strong> to a non-technical audience — ML gives the answer, LLM translates it.</div>
+    </div>
+
+    <div class="levelup-item">
+      <div class="levelup-from">Prompt <span class="levelup-arrow">→</span> <span class="levelup-to">ML</span></div>
+      <div class="levelup-when">When you've collected <strong>500+ labeled examples</strong>, the task is well-defined, and you need speed, cost efficiency, or explainability that a live LLM call can't provide.</div>
+    </div>
+
+  </div>
+
 </div>
 </div>
 
@@ -689,6 +1141,11 @@ footer span {
 </footer>
 
 <script>
+  function resetTree() {
+    document.querySelectorAll('.node').forEach(n => n.classList.remove('open'));
+    document.querySelectorAll('.result-box').forEach(r => r.classList.remove('visible'));
+  }
+
   function toggleNode(el) {
     el.classList.toggle('open');
   }
